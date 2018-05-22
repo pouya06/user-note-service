@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -41,5 +43,22 @@ public class NoteService {
         }
 
         return null;
+    }
+
+    public List<Note> getAllNotesForAUser(long id) {
+        Optional<User> user = userRepository.findById(id);
+        List<Note> allNotesForAUser = new ArrayList<>();
+
+        if (user.get().getEmail() != null) {
+            Iterable<Note> allNotes = noteRepository.findAll();
+
+            for (Note eachNote : allNotes) {
+                if (eachNote.getUser().equals(user.get())) {
+                    allNotesForAUser.add(eachNote);
+                }
+            }
+        }
+
+        return allNotesForAUser;
     }
 }

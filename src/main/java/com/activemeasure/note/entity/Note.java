@@ -2,6 +2,7 @@ package com.activemeasure.note.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "note")
@@ -79,5 +80,23 @@ public class Note {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note1 = (Note) o;
+        return Objects.equals(id, note1.id) &&
+                Objects.equals(title, note1.title) &&
+                Objects.equals(note, note1.note) &&
+                Objects.equals(user, note1.user) &&
+                Objects.equals(createdAt, note1.createdAt) &&
+                Objects.equals(updatedAt, note1.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, note, user, createdAt, updatedAt);
     }
 }

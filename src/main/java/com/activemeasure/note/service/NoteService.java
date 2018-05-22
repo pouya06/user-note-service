@@ -1,5 +1,6 @@
 package com.activemeasure.note.service;
 
+import com.activemeasure.note.dto.NoteDTO;
 import com.activemeasure.note.entity.Note;
 import com.activemeasure.note.entity.User;
 import com.activemeasure.note.repository.NoteRepository;
@@ -25,22 +26,20 @@ public class NoteService {
     }
 
     @Transactional
-    public ResponseEntity<User> addOrUpdateNoteToUser(long id, Note note) {
+    public User addOrUpdateNoteToUser(long id, NoteDTO noteDTO) {
         Optional<User> user = userRepository.findById(id);
 
-        if (user == null) {
-            System.out.println("User with id " + id + " not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (user.get().getEmail() != null) {
+            Note savingNote = new Note();
+            savingNote.setTitle(noteDTO.getTitle());
+            savingNote.setNote(noteDTO.getNote());
+            savingNote.setUser(user.get());
+
+            noteRepository.save(savingNote);
+
+            return user.get();
         }
 
-        Note savingNote = new Note();
-        savingNote.setTitle(note.getTitle());
-        savingNote.setNote(note.getNote());
-        savingNote.setUser(user.get());
-
-        noteRepository.save(savingNote);
-
-
-        return new ResponseEntity<User>(user.get(), HttpStatus.OK);
+        return null;
     }
 }

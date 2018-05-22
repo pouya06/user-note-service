@@ -16,7 +16,7 @@ public class Note {
     private String note;
 
     @ManyToOne
-    @JoinColumn(name = "note_id")
+    @JoinColumn(name = "note_id" , nullable = false)
     private User user;
 
     @Column(updatable = false)

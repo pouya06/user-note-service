@@ -45,6 +45,7 @@ public class NoteService {
         return null;
     }
 
+    @Transactional
     public List<Note> getAllNotesForAUser(long id) {
         Optional<User> user = userRepository.findById(id);
         List<Note> allNotesForAUser = new ArrayList<>();

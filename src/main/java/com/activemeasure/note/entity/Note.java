@@ -11,7 +11,7 @@ public class Note {
 
     private String title;
 
-    private String password;
+    private String note;
 
     @Column(updatable = false)
     private Timestamp createdAt;
@@ -44,12 +44,12 @@ public class Note {
         this.title = title;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNote() {
+        return note;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Timestamp getCreatedAt() {

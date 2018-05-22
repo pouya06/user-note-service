@@ -2,8 +2,10 @@ package com.activemeasure.note.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,6 +14,9 @@ public class User {
     private String email;
 
     private String password;
+
+    @OneToMany(mappedBy = "Note", cascade = CascadeType.ALL)
+    private Set<Note> notes;
 
     @Column(updatable = false)
     private Timestamp createdAt;
@@ -66,5 +71,13 @@ public class User {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Set<Note> notes) {
+        this.notes = notes;
     }
 }

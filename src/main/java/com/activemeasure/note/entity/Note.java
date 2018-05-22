@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "note")
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,6 +13,10 @@ public class Note {
     private String title;
 
     private String note;
+
+    @ManyToOne
+    @JoinColumn(name = "note_id")
+    private User user;
 
     @Column(updatable = false)
     private Timestamp createdAt;
@@ -66,5 +71,13 @@ public class Note {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

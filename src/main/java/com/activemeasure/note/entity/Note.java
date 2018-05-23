@@ -1,6 +1,8 @@
 package com.activemeasure.note.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -11,8 +13,11 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
+    @Size(max = 50)
     private String title;
 
+    @Size(max = 1000)
     private String note;
 
     @ManyToOne

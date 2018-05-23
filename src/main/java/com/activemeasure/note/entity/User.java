@@ -1,6 +1,11 @@
 package com.activemeasure.note.entity;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.Set;
@@ -12,8 +17,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
+    @Email
+    @Column(unique = true)
     private String email;
 
+    @NotBlank
+    @Size(min = 8)
     private String password;
 
     @OneToMany(mappedBy = "Note", cascade = CascadeType.ALL)
